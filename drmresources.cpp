@@ -28,6 +28,9 @@
 
 #include <cutils/log.h>
 
+#define __STDC_FORMAT_MACROS
+#include <inttypes.h>
+
 namespace android {
 
 DrmResources::DrmResources()
@@ -422,7 +425,7 @@ int DrmResources::SetDpmsMode(int display, uint64_t mode)
 
     const DrmProperty &prop = conn->dpms_property();
     int ret = drmModeConnectorSetProperty(fd(), conn->id(), prop.id(), mode);
-    ALOGD("Display %d SetDpmsMode %lld", display, mode);
+    ALOGD("Display %d SetDpmsMode %" PRIu64,  display, mode);
     if (ret) {
         ALOGE("Failed to set DPMS property for connector %d", conn->id());
         return ret;
